@@ -2,7 +2,9 @@ const chain = require('stack-chain');
 const chalk = require('chalk');
 const path = require('path');
 
-const appDir = path.dirname(require.main.filename) + '/';
+const appDir = require.main
+  ? path.dirname(require.main.filename) + '/'
+  : path.dirname(process.argv[1]);
 
 chain.filter.attach(function (error, frames) {
   return frames.filter(function (callSite) {
@@ -20,11 +22,13 @@ chain.format.replace(function (error, frames) {
     let frame = '    at ' + frames[i];
 
     if (!frame.includes('node_modules')) {
-      frame = frame.split(appDir);
-      frame[1] = chalk.bold(frame[1].slice(0, -1));
-      frame = frame.join(appDir) + ')';
+      if (appDir) {
+        frame = frame.split(appDir);
+        frame[1] = chalk.bold(frame[1].slice(0, -1));
+        frame = frame.join(appDir) + ')';
 
-      frame = frame.replace(appDir, chalk.grey(appDir));
+        frame = frame.replace(appDir, chalk.grey(appDir));
+      }
       lines.push(frame);
     } else {
       lines.push(chalk.grey(frame));
