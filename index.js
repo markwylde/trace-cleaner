@@ -9,6 +9,13 @@ global.Error = class extends Error {
   }
 };
 
+const originalCaptureStackTrace = global.Error.captureStackTrace;
+global.Error.captureStackTrace = (...args) => {
+  if (args[0].constructor.name === 'Object') {
+    originalCaptureStackTrace(...args);
+  }
+};
+
 const appDir = require.main
   ? path.dirname(require.main.filename) + '/'
   : path.dirname(process.argv[1]);
