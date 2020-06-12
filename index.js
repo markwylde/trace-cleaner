@@ -2,6 +2,13 @@ const chain = require('stack-chain');
 const chalk = require('chalk');
 const path = require('path');
 
+global.Error = class extends Error {
+  constructor (message) {
+    super(message);
+    this.stack += '';
+  }
+};
+
 const appDir = require.main
   ? path.dirname(require.main.filename) + '/'
   : path.dirname(process.argv[1]);
