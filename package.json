@@ -1,6 +1,6 @@
 {
   "name": "trace-cleaner",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Clean up stack traces by hiding node_modules and the root directory",
   "repository": {
     "type": "git",
