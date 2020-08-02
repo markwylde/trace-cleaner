@@ -21,6 +21,10 @@ const appDir = require.main
   : path.dirname(process.argv[1]);
 
 chain.filter.attach(function (error, frames) {
+  if (!frames) {
+    return frames;
+  }
+
   return frames.filter(function (callSite) {
     const name = callSite && callSite.getFileName();
     return (name && name.includes(path.sep) && !name.startsWith('internal'));
