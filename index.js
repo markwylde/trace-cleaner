@@ -21,7 +21,7 @@ const appDir = require.main
   : path.dirname(process.argv[1]);
 
 chain.filter.attach(function (error, frames) {
-  if (!frames) {
+  if (!frames || !frames.filter) {
     return frames;
   }
 
