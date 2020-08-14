@@ -42,7 +42,9 @@ chain.format.replace(function (error, frames) {
     if (!frame.includes('node_modules')) {
       if (appDir) {
         frame = frame.split(appDir);
-        frame[1] = chalk.bold(frame[1].slice(0, -1));
+        if (frame[1]) {
+          frame[1] = chalk.bold(frame[1].slice(0, -1));
+        }
         frame = frame.join(appDir) + ')';
 
         frame = frame.replace(appDir, chalk.grey(appDir));
